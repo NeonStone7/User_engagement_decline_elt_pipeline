@@ -1,0 +1,6 @@
+project:
+    name: customer-sub-dbt-dag
+webserver:
+    port: 8082
+postgres:
+    port: 5436
