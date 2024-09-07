@@ -1,0 +1,149 @@
+version: 2
+
+sources:
+  - name: raw_CHURN
+    description: This file contains all information on users that have churned
+    database: DB_TEAM_PRODUCT  # Ensure the correct case is used
+    schema: RAW_DATA
+    tables:
+      - name: CHURN
+        columns:
+          - name: USER_ID
+            tests:
+              - unique
+              - not_null
+          - name: CHURN_DATE
+            tests:
+              - not_null
+          - name: SATISFACTION_SCORE
+            tests:
+              - not_null
+
+  - name: raw_CUSTOMER_FEEDBACK
+    description: This file contains all information on users feedback
+    database: DB_TEAM_PRODUCT  # Ensure the correct case is used
+    schema: RAW_DATA
+    tables:
+      - name: CUSTOMER_FEEDBACK
+        columns:
+          - name: C1
+            tests:
+              - unique
+              - not_null
+          - name: C2
+            tests:
+              - not_null
+          - name: C3
+            tests:
+              - not_null
+              - accepted_values:
+                  values: [1,2,3,4,5]
+
+  - name: raw_FEATURE_USAGE
+    description: This file contains all information on how users use features
+    database: DB_TEAM_PRODUCT  # Ensure the correct case is used
+    schema: RAW_DATA
+    tables:
+      - name: FEATURE_USAGE
+        columns:
+          - name: USER_ID
+            tests:
+              - unique
+              - not_null
+          - name: FEATURE_ID
+            tests:
+              - unique
+              - not_null              
+          - name: DATE
+            tests:
+              - not_null
+          - name: USAGE_COUNT
+            tests:
+              - not_null
+              - values_less_than_0
+
+  - name: raw_SESSION_DATA
+    description: This file contains all information on users sessions
+    database: DB_TEAM_PRODUCT  # Ensure the correct case is used
+    schema: RAW_DATA
+    tables:
+      - name: SESSION_DATA
+        columns:
+          - name: USER_ID
+            tests:
+              - unique
+              - not_null
+          - name: SESSION_ID
+            tests:
+              - not_null
+              - unique
+          - name: SESSION_START
+            tests:
+              - not_null
+          - name: SESSION_END
+            tests:
+              - not_null              
+          - name: SESSION_TYPE
+            tests:
+              - not_null
+              - accepted_values:
+                  values: [login, interaction]
+
+  - name: raw_USERS
+    description: This file contains all information on users
+    database: DB_TEAM_PRODUCT  # Ensure the correct case is used
+    schema: RAW_DATA
+    tables:
+      - name: USERS
+        columns:
+          - name: USER_ID
+            tests:
+              - unique
+              - not_null
+          - name: SIGNUP_DATE
+            tests:
+              - not_null
+          - name: COUNTRY
+            tests:
+              - not_null
+          - name: AGE
+            tests:
+              - not_null
+              - unrealistic_value:
+                  value: 100
+          - name: GENDER
+            tests:
+              - not_null
+              - accepted_values:
+                  values: [Male, Female]
+          - name: DEVICE
+            tests:
+              - accepted_values:
+                  values: [web, mobile]
+
+  - name: raw_USER_ENGAGEMENT
+    description: This file contains all information on users engagement
+    database: DB_TEAM_PRODUCT  # Ensure the correct case is used
+    schema: RAW_DATA
+    tables:
+      - name: USER_ENGAGEMENT
+        columns:
+          - name: USER_ID
+            tests:
+              - unique
+              - not_null
+          - name: DATE
+            tests:
+              - not_null
+          - name: SESSION_DURATION
+            tests:
+              - not_null
+              - values_less_than_0
+          - name: ACTION
+            tests:
+              - not_null
+          - name: CONVERSION
+            tests:
+              - not_null
+              - accepted_values:
+                  values: [FALSE, TRUE]          
