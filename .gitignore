@@ -6,6 +6,12 @@ __pycache__/
 # C extensions
 *.so
 
+# extra files
+datasets/datasets
+profiles.yml
+user_engagement_decline/profiles.yml
+
+
 # Distribution / packaging
 .Python
 build/
